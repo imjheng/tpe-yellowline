@@ -181,7 +181,7 @@ button,input{font:inherit;-webkit-tap-highlight-color:transparent;color:inherit}
   <div id="frow">
    <button id="fw" aria-pressed="false">只看待確認</button>
    <button id="fn" aria-pressed="false">依距離排序</button>
-   <button id="fs" aria-pressed="false">同步地圖</button>
+   <button id="fs" aria-pressed="false">地圖只留結果</button>
   </div>
  </div>
  <div id="st" aria-live="polite"></div><div id="list"></div>
@@ -263,7 +263,9 @@ function toast(msg,ms){clearTimeout(ttid);const t=$('toast');t.textContent=msg;t
  ttid=setTimeout(()=>t.classList.remove('on'),ms||4200);}
 
 /* ── 圖層 ── */
-let me=null,meMk=null,warn=false,bydist=false,sync=true,kw='',watchId=null;
+/* sync 預設關閉：篩選清單不該動地圖。預設開啟會讓人按下篩選後
+   以為線被刪了 —— 掃全市哪裡能停是這張圖的主要用途。 */
+let me=null,meMk=null,warn=false,bydist=false,sync=false,kw='',watchId=null;
 const LY={};
 D.forEach(d=>{
   const r=rel(d);
@@ -382,7 +384,6 @@ $('q').oninput=e=>{kw=e.target.value.trim();render()};
 function toggle(id,get,set){$(id).onclick=()=>{set(!get());$(id).setAttribute('aria-pressed',get()?'true':'false');render()}}
 toggle('fw',()=>warn,v=>warn=v);
 toggle('fs',()=>sync,v=>sync=v);
-$('fs').setAttribute('aria-pressed','true');
 $('fn').onclick=()=>{if(!me){toast('請先按右下角「我在哪」取得定位');return}
  bydist=!bydist;$('fn').setAttribute('aria-pressed',bydist?'true':'false');render()};
 
