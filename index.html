@@ -59,8 +59,10 @@ button,input{font:inherit;-webkit-tap-highlight-color:transparent;color:inherit}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
 
 /* ── 頂欄 ── */
-#top{position:absolute;top:0;left:0;right:0;z-index:900;padding:calc(8px + env(safe-area-inset-top)) 10px 0;display:flex;gap:8px;pointer-events:none}
-#brand{pointer-events:auto;background:var(--veil);backdrop-filter:saturate(1.6) blur(10px);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--sh);padding:9px 12px;flex:1;min-width:0}
+/* align-items:flex-start —— 否則右側 148px 高的按鈕直排會把標題卡片一起撐高，
+   卡片下半就是一片空白。寬螢幕上卡片也不該拉滿整條，限個寬度。 */
+#top{position:absolute;top:0;left:0;right:0;z-index:900;padding:calc(8px + env(safe-area-inset-top)) 10px 0;display:flex;gap:8px;pointer-events:none;align-items:flex-start;justify-content:space-between}
+#brand{pointer-events:auto;background:var(--veil);backdrop-filter:saturate(1.6) blur(10px);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--sh);padding:9px 12px;flex:0 1 440px;min-width:0}
 #brand h1{margin:0;font-size:14px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #brand .v{font-size:10px;color:var(--mut);font-weight:400}
 #brand .lg{display:flex;flex-wrap:wrap;gap:5px 10px;margin-top:7px;font-size:11px;color:var(--ink2);line-height:1.5}
